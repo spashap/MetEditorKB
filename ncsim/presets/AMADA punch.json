@@ -1,0 +1,642 @@
+{
+  "version": 1,
+  "name": "AMADA punch",
+  "notes": "AMADA punch, based on FANUC with AMADA\u0027s own codes (Pavel 2026-10-12): T = tool \u002B punching, X / Y alone = a hit, G70 = move without a hit, G72 = pattern origin, G98 = reference point, C = tool angle; patterns G26 / G28 / G29 / G36 / G66 / G67 / G68 / G69 / G78 / G79 from AMADA\u0027s AMNC-F programming manual and the Metalix AMADA customization guide. Verified on PART-IS-DOWN.nc (cncKad) and the Romstar Vipros 255 .VNC files. Tool shapes: Tools page (Fill tools from NC).",
+  "kind": "punch",
+  "units": "inch",
+  "lex": {
+    "comments": [
+      {
+        "open": "(",
+        "close": ")"
+      },
+      {
+        "open": ";",
+        "close": ""
+      }
+    ],
+    "spaces_inside_words": true,
+    "line_number_letter": "N",
+    "arg_separator": ","
+  },
+  "bounds": {
+    "start_marker": "",
+    "end_marker": ""
+  },
+  "templates": [
+    {
+      "id": "r.program_end.0",
+      "label": "Program end",
+      "form": "word",
+      "code": "M",
+      "number": "30",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "program_end",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "program_end",
+      "row_pattern": "M30"
+    },
+    {
+      "id": "r.absolute.0",
+      "label": "Absolute coordinates",
+      "form": "word",
+      "code": "G",
+      "number": "90",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "absolute_mode",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "absolute",
+      "row_pattern": "G90"
+    },
+    {
+      "id": "r.incremental.0",
+      "label": "Incremental coordinates",
+      "form": "word",
+      "code": "G",
+      "number": "91",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "incremental_mode",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "incremental",
+      "row_pattern": "G91"
+    },
+    {
+      "id": "r.local_origin.0",
+      "label": "Local origin (zero point)",
+      "form": "word",
+      "code": "G",
+      "number": "98",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "local_origin",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "local_origin",
+      "row_pattern": "G98X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.tool_select.0",
+      "label": "Tool \u002B Punch on (every X / Y move hits)",
+      "form": "word",
+      "code": "T",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "tool_select",
+          "params": {
+            "Tool": "number"
+          }
+        },
+        {
+          "kind": "process_on",
+          "params": {
+            "Process": "const:punch"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "tool_select,punch_on",
+      "row_pattern": "T\u0027x\u0027"
+    },
+    {
+      "id": "r.tool_angle.0",
+      "label": "Tool angle",
+      "form": "word",
+      "code": "C",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "tool_angle",
+          "params": {
+            "Angle": "number"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "tool_angle",
+      "row_pattern": "C\u0027x\u0027"
+    },
+    {
+      "id": "r.move_no_hit.0",
+      "label": "Move without a hit",
+      "form": "word",
+      "code": "G",
+      "number": "70",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "move_no_hit",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "move_no_hit",
+      "row_pattern": "G70X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.move_no_hit.1",
+      "label": "Move without a hit",
+      "form": "word",
+      "code": "G",
+      "number": "72",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "move_no_hit",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "move_no_hit",
+      "row_pattern": "G72X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.pattern_line.0",
+      "label": "Hits in a row",
+      "form": "word",
+      "code": "G",
+      "number": "28",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_line",
+          "params": {
+            "Angle": "addr:J",
+            "Pitch": "addr:I",
+            "Count": "addr:K"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_line",
+      "row_pattern": "G28I\u0027pitch\u0027J\u0027angle\u0027K\u0027count\u0027"
+    },
+    {
+      "id": "r.pattern_grid.0",
+      "label": "Grid of hits",
+      "form": "word",
+      "code": "G",
+      "number": "36",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_grid",
+          "params": {
+            "PitchX": "addr:I",
+            "CountX": "addr:P",
+            "PitchY": "addr:J",
+            "CountY": "addr:K"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_grid",
+      "row_pattern": "G36I\u0027pitchx\u0027P\u0027countx\u0027J\u0027pitchy\u0027K\u0027county\u0027"
+    },
+    {
+      "id": "r.pattern_arc.0",
+      "label": "Hits on a circle",
+      "form": "word",
+      "code": "G",
+      "number": "26",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_arc",
+          "params": {
+            "Radius": "addr:I",
+            "StartAngle": "addr:J",
+            "Count": "addr:K"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_arc",
+      "row_pattern": "G26I\u0027radius\u0027J\u0027startangle\u0027K\u0027count\u0027"
+    },
+    {
+      "id": "r.pattern_arc.1",
+      "label": "Hits on a circle",
+      "form": "word",
+      "code": "G",
+      "number": "29",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_arc",
+          "params": {
+            "Radius": "addr:I",
+            "StartAngle": "addr:J",
+            "StepAngle": "addr:P",
+            "Count": "addr:K"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_arc",
+      "row_pattern": "G29I\u0027radius\u0027J\u0027startangle\u0027P\u0027stepangle\u0027K\u0027count\u0027"
+    },
+    {
+      "id": "r.pattern_path_line.0",
+      "label": "Hits along a line every interval",
+      "form": "word",
+      "code": "G",
+      "number": "69",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_path_line",
+          "params": {
+            "Length": "addr:I",
+            "Angle": "addr:J",
+            "ToolSize": "addr:P",
+            "Interval": "addr:Q"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_path_line",
+      "row_pattern": "G69I\u0027length\u0027J\u0027angle\u0027P\u0027toolsize\u0027Q\u0027interval\u0027"
+    },
+    {
+      "id": "r.pattern_path_line.1",
+      "label": "Hits along a line every interval",
+      "form": "word",
+      "code": "G",
+      "number": "79",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_path_line",
+          "params": {
+            "Length": "addr:I",
+            "Angle": "addr:J",
+            "ToolSize": "addr:P",
+            "Interval": "addr:Q"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_path_line",
+      "row_pattern": "G79I\u0027length\u0027J\u0027angle\u0027P\u0027toolsize\u0027Q\u0027interval\u0027"
+    },
+    {
+      "id": "r.pattern_path_arc.0",
+      "label": "Hits along an arc every interval",
+      "form": "word",
+      "code": "G",
+      "number": "68",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_path_arc",
+          "params": {
+            "Radius": "addr:I",
+            "StartAngle": "addr:J",
+            "Sweep": "addr:K",
+            "ToolSize": "addr:P",
+            "Interval": "addr:Q"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_path_arc",
+      "row_pattern": "G68I\u0027radius\u0027J\u0027startangle\u0027K\u0027sweep\u0027P\u0027toolsize\u0027Q\u0027interval\u0027"
+    },
+    {
+      "id": "r.pattern_path_arc.1",
+      "label": "Hits along an arc every interval",
+      "form": "word",
+      "code": "G",
+      "number": "78",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_path_arc",
+          "params": {
+            "Radius": "addr:I",
+            "StartAngle": "addr:J",
+            "Sweep": "addr:K",
+            "ToolSize": "addr:P",
+            "Interval": "addr:Q"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_path_arc",
+      "row_pattern": "G78I\u0027radius\u0027J\u0027startangle\u0027K\u0027sweep\u0027P\u0027toolsize\u0027Q\u0027interval\u0027"
+    },
+    {
+      "id": "r.pattern_window.0",
+      "label": "Rectangular opening with a square punch",
+      "form": "word",
+      "code": "G",
+      "number": "67",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_window",
+          "params": {
+            "LengthX": "addr:I",
+            "LengthY": "addr:J",
+            "ToolSize": "addr:P"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_window",
+      "row_pattern": "G67I\u0027lengthx\u0027J\u0027lengthy\u0027P\u0027toolsize\u0027"
+    },
+    {
+      "id": "r.pattern_shear.0",
+      "label": "A line covered by a long tool (shear)",
+      "form": "word",
+      "code": "G",
+      "number": "66",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "pattern_shear",
+          "params": {
+            "Length": "addr:I",
+            "Angle": "addr:J",
+            "ToolLength": "addr:P",
+            "ToolWidth": "addr:Q",
+            "Extend": "addr:D"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "pattern_shear",
+      "row_pattern": "G66I\u0027length\u0027J\u0027angle\u0027P\u0027toollength\u0027Q\u0027toolwidth\u0027D\u0027extend\u0027"
+    },
+    {
+      "id": "r.sheet_size.0",
+      "label": "Sheet size",
+      "form": "line_pattern",
+      "code": "",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "(WK/ {1}T {2}X {3})",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "sheet_size",
+          "params": {
+            "Width": "slot:2",
+            "Height": "slot:3",
+            "Thickness": "slot:1"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "sheet_size",
+      "row_pattern": "(WK/ \u0027t\u0027T \u0027w\u0027X \u0027h\u0027)"
+    }
+  ],
+  "arcs": {
+    "centre": "from_start",
+    "negative_r": "unresolved",
+    "full_circle_without_end_point": true
+  },
+  "calls": {
+    "id_match": "numeric_value",
+    "origin": "unchanged",
+    "modes_on_return": "keep",
+    "max_depth": 8,
+    "main_block": 1
+  },
+  "sheet": {
+    "width": 0,
+    "height": 0,
+    "thickness": 0,
+    "override": false
+  },
+  "tools": [],
+  "plain_xy_motion": "linear",
+  "preset": null,
+  "rows": [
+    {
+      "id": "program_end",
+      "patterns": "M30",
+      "modal": null
+    },
+    {
+      "id": "absolute",
+      "patterns": "G90",
+      "modal": null
+    },
+    {
+      "id": "incremental",
+      "patterns": "G91",
+      "modal": null
+    },
+    {
+      "id": "local_origin",
+      "patterns": "G98X\u0027x\u0027Y\u0027y\u0027",
+      "modal": null
+    },
+    {
+      "id": "tool_select",
+      "patterns": "T\u0027x\u0027",
+      "modal": null
+    },
+    {
+      "id": "punch_on",
+      "patterns": "T\u0027*\u0027",
+      "modal": null
+    },
+    {
+      "id": "tool_angle",
+      "patterns": "C\u0027x\u0027",
+      "modal": null
+    },
+    {
+      "id": "move_no_hit",
+      "patterns": "G70X\u0027x\u0027Y\u0027y\u0027; G72X\u0027x\u0027Y\u0027y\u0027",
+      "modal": null
+    },
+    {
+      "id": "pattern_line",
+      "patterns": "G28I\u0027pitch\u0027J\u0027angle\u0027K\u0027count\u0027",
+      "modal": null
+    },
+    {
+      "id": "pattern_grid",
+      "patterns": "G36I\u0027pitchx\u0027P\u0027countx\u0027J\u0027pitchy\u0027K\u0027county\u0027",
+      "modal": null
+    },
+    {
+      "id": "pattern_arc",
+      "patterns": "G26I\u0027radius\u0027J\u0027startangle\u0027K\u0027count\u0027; G29I\u0027radius\u0027J\u0027startangle\u0027P\u0027stepangle\u0027K\u0027count\u0027",
+      "modal": null
+    },
+    {
+      "id": "pattern_path_line",
+      "patterns": "G69I\u0027length\u0027J\u0027angle\u0027P\u0027toolsize\u0027Q\u0027interval\u0027; G79I\u0027length\u0027J\u0027angle\u0027P\u0027toolsize\u0027Q\u0027interval\u0027",
+      "modal": null
+    },
+    {
+      "id": "pattern_path_arc",
+      "patterns": "G68I\u0027radius\u0027J\u0027startangle\u0027K\u0027sweep\u0027P\u0027toolsize\u0027Q\u0027interval\u0027; G78I\u0027radius\u0027J\u0027startangle\u0027K\u0027sweep\u0027P\u0027toolsize\u0027Q\u0027interval\u0027",
+      "modal": null
+    },
+    {
+      "id": "pattern_window",
+      "patterns": "G67I\u0027lengthx\u0027J\u0027lengthy\u0027P\u0027toolsize\u0027",
+      "modal": null
+    },
+    {
+      "id": "pattern_shear",
+      "patterns": "G66I\u0027length\u0027J\u0027angle\u0027P\u0027toollength\u0027Q\u0027toolwidth\u0027D\u0027extend\u0027",
+      "modal": null
+    },
+    {
+      "id": "sheet_size",
+      "patterns": "(WK/ \u0027t\u0027T \u0027w\u0027X \u0027h\u0027)",
+      "modal": null
+    }
+  ],
+  "structure": "standard"
+}

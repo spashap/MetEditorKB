@@ -1,0 +1,1612 @@
+{
+  "version": 1,
+  "name": "TRUMPF 840D LST",
+  "notes": "TRUMPF TruTops LST for Siemens 840D (punch, laser, combi). Program structure: BEGIN_PROGRAMM list - HP = main, UP = sub-programs called by their name, GEO skipped; sheet from SHEET_TECH, tool shapes from WZG_STAMM. Verified on EC_T12_60120.LST (punch, inch), AG01338.LST (punch, GEO), SRS125ISR.LST (laser, ROT RPL). Source: docs/knowledge/ncsim-presets/trumpf-lst.md (Pavel 2026-10-12 \u002B the files) and the Metalix TRUMPF customization guide.",
+  "kind": "combi",
+  "units": "mm",
+  "lex": {
+    "comments": [
+      {
+        "open": "(",
+        "close": ")"
+      },
+      {
+        "open": ";",
+        "close": ""
+      }
+    ],
+    "spaces_inside_words": true,
+    "line_number_letter": "N",
+    "arg_separator": ","
+  },
+  "bounds": {
+    "start_marker": "",
+    "end_marker": ""
+  },
+  "templates": [
+    {
+      "id": "r.sub_return.0",
+      "label": "Sub-program end (return)",
+      "form": "word",
+      "code": "M",
+      "number": "17",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "sub_return",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "sub_return",
+      "row_pattern": "M17"
+    },
+    {
+      "id": "r.program_end.0",
+      "label": "Program end",
+      "form": "word",
+      "code": "M",
+      "number": "30",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "program_end",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "program_end",
+      "row_pattern": "M30"
+    },
+    {
+      "id": "r.program_end.1",
+      "label": "Program end",
+      "form": "word",
+      "code": "M",
+      "number": "02",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "program_end",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "program_end",
+      "row_pattern": "M02"
+    },
+    {
+      "id": "r.rapid.0",
+      "label": "Rapid move",
+      "form": "word",
+      "code": "G",
+      "number": "00",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": true,
+      "actions": [
+        {
+          "kind": "rapid",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "rapid",
+      "row_pattern": "G00X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.linear.0",
+      "label": "Cut line",
+      "form": "word",
+      "code": "G",
+      "number": "01",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": true,
+      "actions": [
+        {
+          "kind": "linear",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "linear",
+      "row_pattern": "G01X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.arc_cw.0",
+      "label": "Arc clockwise",
+      "form": "word",
+      "code": "G",
+      "number": "02",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": true,
+      "actions": [
+        {
+          "kind": "arc_cw",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y",
+            "I": "addr:I",
+            "J": "addr:J"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "arc_cw",
+      "row_pattern": "G02X\u0027x\u0027Y\u0027y\u0027I\u0027i\u0027J\u0027j\u0027"
+    },
+    {
+      "id": "r.arc_ccw.0",
+      "label": "Arc counter-clockwise",
+      "form": "word",
+      "code": "G",
+      "number": "03",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": true,
+      "actions": [
+        {
+          "kind": "arc_ccw",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y",
+            "I": "addr:I",
+            "J": "addr:J"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "arc_ccw",
+      "row_pattern": "G03X\u0027x\u0027Y\u0027y\u0027I\u0027i\u0027J\u0027j\u0027"
+    },
+    {
+      "id": "r.absolute.0",
+      "label": "Absolute coordinates",
+      "form": "word",
+      "code": "G",
+      "number": "90",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "absolute_mode",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "absolute",
+      "row_pattern": "G90"
+    },
+    {
+      "id": "r.incremental.0",
+      "label": "Incremental coordinates",
+      "form": "word",
+      "code": "G",
+      "number": "91",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "incremental_mode",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "incremental",
+      "row_pattern": "G91"
+    },
+    {
+      "id": "r.machine_move.0",
+      "label": "Move in machine coordinates (not drawn)",
+      "form": "word",
+      "code": "G",
+      "number": "53",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "machine_move",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "machine_move",
+      "row_pattern": "G53X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.rotate.0",
+      "label": "Rotate what follows (e.g. a called sub-program)",
+      "form": "assignment",
+      "code": "RPL",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "rotate",
+          "params": {
+            "Angle": "value"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "rotate",
+      "row_pattern": "ROT RPL=\u0027x\u0027"
+    },
+    {
+      "id": "r.rotate_off.0",
+      "label": "Rotation off",
+      "form": "name",
+      "code": "ROT",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "rotate_off",
+          "params": {}
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "rotate_off",
+      "row_pattern": "ROT"
+    },
+    {
+      "id": "r.laser_on.0",
+      "label": "Laser on",
+      "form": "name",
+      "code": "TC_LASER_ON",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_on",
+          "params": {
+            "Process": "const:laser"
+          }
+        },
+        {
+          "kind": "technology_select",
+          "params": {
+            "Name": "arg:2"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "laser_on",
+      "row_pattern": "TC_LASER_ON(\u0027*\u0027,\u0022\u0027x\u0027\u0022,\u0027*\u0027,\u0027*\u0027)"
+    },
+    {
+      "id": "r.laser_off.0",
+      "label": "Laser off",
+      "form": "name",
+      "code": "TC_LASER_OFF",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_off",
+          "params": {
+            "Process": "const:laser"
+          }
+        }
+      ],
+      "order": "after",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "laser_off",
+      "row_pattern": "TC_LASER_OFF(\u0027*\u0027)"
+    },
+    {
+      "id": "r.flycut.0",
+      "label": "Flycut: this move is travel (laser at minimum)",
+      "form": "word",
+      "code": "G",
+      "number": "822",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "flycut",
+          "params": {}
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "flycut",
+      "row_pattern": "G822"
+    },
+    {
+      "id": "r.flycut.1",
+      "label": "Flycut: this move is travel (laser at minimum)",
+      "form": "word",
+      "code": "G",
+      "number": "823",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "flycut",
+          "params": {}
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "flycut",
+      "row_pattern": "G823"
+    },
+    {
+      "id": "r.flycut.2",
+      "label": "Flycut: this move is travel (laser at minimum)",
+      "form": "word",
+      "code": "G",
+      "number": "824",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "flycut",
+          "params": {}
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "flycut",
+      "row_pattern": "G824"
+    },
+    {
+      "id": "r.punch_on.0",
+      "label": "Punch on (every X / Y move hits)",
+      "form": "name",
+      "code": "PUNCH_ON",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_on",
+          "params": {
+            "Process": "const:punch"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "punch_on",
+      "row_pattern": "PUNCH_ON"
+    },
+    {
+      "id": "r.punch_off.0",
+      "label": "Punch off",
+      "form": "name",
+      "code": "PUNCH_OFF",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_off",
+          "params": {
+            "Process": "const:punch"
+          }
+        }
+      ],
+      "order": "after",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "punch_off",
+      "row_pattern": "PUNCH_OFF"
+    },
+    {
+      "id": "r.nibble_on.0",
+      "label": "Nibble on (along the moves)",
+      "form": "name",
+      "code": "NIBBLE_ON",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_on",
+          "params": {
+            "Process": "const:nibble"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "nibble_on",
+      "row_pattern": "NIBBLE_ON"
+    },
+    {
+      "id": "r.nibble_off.0",
+      "label": "Nibble off",
+      "form": "name",
+      "code": "NIBBLE_OFF",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_off",
+          "params": {
+            "Process": "const:nibble"
+          }
+        }
+      ],
+      "order": "after",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "nibble_off",
+      "row_pattern": "NIBBLE_OFF"
+    },
+    {
+      "id": "r.nibble_pitch.0",
+      "label": "Nibble pitch",
+      "form": "assignment",
+      "code": "SPP",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "nibble_pitch",
+      "row_pattern": "SPP=\u0027x\u0027"
+    },
+    {
+      "id": "r.mark_on.0",
+      "label": "Marking / carving on",
+      "form": "name",
+      "code": "TC_MARK_ON",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_on",
+          "params": {
+            "Process": "const:mark"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "mark_on",
+      "row_pattern": "TC_MARK_ON(\u0027*\u0027)"
+    },
+    {
+      "id": "r.mark_on.1",
+      "label": "Marking / carving on",
+      "form": "name",
+      "code": "TC_CARVE_ON",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_on",
+          "params": {
+            "Process": "const:mark"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "mark_on",
+      "row_pattern": "TC_CARVE_ON(\u0027*\u0027)"
+    },
+    {
+      "id": "r.mark_off.0",
+      "label": "Marking / carving off",
+      "form": "name",
+      "code": "TC_MARK_OFF",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_off",
+          "params": {
+            "Process": "const:mark"
+          }
+        }
+      ],
+      "order": "after",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "mark_off",
+      "row_pattern": "TC_MARK_OFF"
+    },
+    {
+      "id": "r.mark_off.1",
+      "label": "Marking / carving off",
+      "form": "name",
+      "code": "TC_CARVE_OFF",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_off",
+          "params": {
+            "Process": "const:mark"
+          }
+        }
+      ],
+      "order": "after",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "mark_off",
+      "row_pattern": "TC_CARVE_OFF"
+    },
+    {
+      "id": "r.tool_select.0",
+      "label": "Tool",
+      "form": "name",
+      "code": "TC_TOOL_NO",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "tool_select",
+          "params": {
+            "Tool": "arg:1"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "tool_select",
+      "row_pattern": "TC_TOOL_NO(\u0022\u0027x\u0027\u0022)"
+    },
+    {
+      "id": "r.tool_select.1",
+      "label": "Tool",
+      "form": "name",
+      "code": "TC_TOOL_LOAD",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "tool_select",
+          "params": {
+            "Tool": "arg:1"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "tool_select",
+      "row_pattern": "TC_TOOL_LOAD(\u0022\u0027x\u0027\u0022,\u0027*\u0027)"
+    },
+    {
+      "id": "r.tool_angle.0",
+      "label": "Tool angle",
+      "form": "assignment",
+      "code": "C1",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "tool_angle",
+          "params": {
+            "Angle": "valuein"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "tool_angle",
+      "row_pattern": "C1=DC(\u0027x\u0027)"
+    },
+    {
+      "id": "r.technology.0",
+      "label": "Technology",
+      "form": "name",
+      "code": "TC_TOOL_TECH",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "technology_select",
+          "params": {
+            "Name": "arg:1"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "technology",
+      "row_pattern": "TC_TOOL_TECH(\u0022\u0027x\u0027\u0022)"
+    },
+    {
+      "id": "r.ignore.0",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "MSG",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "MSG(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.1",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "line_pattern",
+      "code": "",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "DEF {*}",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "DEF \u0027*\u0027"
+    },
+    {
+      "id": "r.ignore.2",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TRAILON",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TRAILON(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.3",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "70",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G70"
+    },
+    {
+      "id": "r.ignore.4",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "71",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G71"
+    },
+    {
+      "id": "r.ignore.5",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "F",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "F\u0027*\u0027"
+    },
+    {
+      "id": "r.ignore.6",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "40",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G40"
+    },
+    {
+      "id": "r.ignore.7",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "41",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G41"
+    },
+    {
+      "id": "r.ignore.8",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "42",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G42"
+    },
+    {
+      "id": "r.ignore.9",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_SUCTION_OFF",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_SUCTION_OFF"
+    },
+    {
+      "id": "r.ignore.10",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_SUCTION_ON",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_SUCTION_ON"
+    },
+    {
+      "id": "r.ignore.11",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_CLAMP_CYC",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_CLAMP_CYC"
+    },
+    {
+      "id": "r.ignore.12",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_TOOL_CHANGE",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_TOOL_CHANGE"
+    },
+    {
+      "id": "r.ignore.13",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_TOOL_HEIGHT",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_TOOL_HEIGHT(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.14",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_TOOL_POSITION",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_TOOL_POSITION(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.15",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_SHEET_TECH",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_SHEET_TECH(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.16",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_SHEET_LOAD",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_SHEET_LOAD(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.17",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_PREPARE_SHEET_LOAD",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_PREPARE_SHEET_LOAD(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.18",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_SHEET_UNLOAD",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_SHEET_UNLOAD(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.19",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_PREPARE_UNLOAD",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_PREPARE_UNLOAD(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.20",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_UNLOAD",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_UNLOAD(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.21",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_SHEET_REPOSIT",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_SHEET_REPOSIT(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.22",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_PART_END",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_PART_END(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.23",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_POS_LEVEL",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_POS_LEVEL(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.24",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_PCS_PIERCE",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_PCS_PIERCE"
+    },
+    {
+      "id": "r.ignore.25",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_MICROJOINT",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_MICROJOINT(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.26",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_LASERCORR_ON",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_LASERCORR_ON(\u0027*\u0027)"
+    },
+    {
+      "id": "r.ignore.27",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_LASERCORR_OFF",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_LASERCORR_OFF"
+    },
+    {
+      "id": "r.ignore.28",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "04",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G04"
+    },
+    {
+      "id": "r.ignore.29",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "name",
+      "code": "TC_SHEET_THICK",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "TC_SHEET_THICK(\u0027*\u0027)"
+    }
+  ],
+  "arcs": {
+    "centre": "from_start",
+    "negative_r": "unresolved",
+    "full_circle_without_end_point": true
+  },
+  "calls": {
+    "id_match": "numeric_value",
+    "origin": "unchanged",
+    "modes_on_return": "keep",
+    "max_depth": 8,
+    "main_block": 1
+  },
+  "sheet": {
+    "width": 0,
+    "height": 0,
+    "thickness": 0,
+    "override": false
+  },
+  "tools": [],
+  "plain_xy_motion": "linear",
+  "preset": null,
+  "rows": [
+    {
+      "id": "sub_return",
+      "patterns": "M17",
+      "modal": null
+    },
+    {
+      "id": "program_end",
+      "patterns": "M30; M02",
+      "modal": null
+    },
+    {
+      "id": "rapid",
+      "patterns": "G00X\u0027x\u0027Y\u0027y\u0027",
+      "modal": null
+    },
+    {
+      "id": "linear",
+      "patterns": "G01X\u0027x\u0027Y\u0027y\u0027",
+      "modal": null
+    },
+    {
+      "id": "arc_cw",
+      "patterns": "G02X\u0027x\u0027Y\u0027y\u0027I\u0027i\u0027J\u0027j\u0027",
+      "modal": null
+    },
+    {
+      "id": "arc_ccw",
+      "patterns": "G03X\u0027x\u0027Y\u0027y\u0027I\u0027i\u0027J\u0027j\u0027",
+      "modal": null
+    },
+    {
+      "id": "absolute",
+      "patterns": "G90",
+      "modal": null
+    },
+    {
+      "id": "incremental",
+      "patterns": "G91",
+      "modal": null
+    },
+    {
+      "id": "machine_move",
+      "patterns": "G53X\u0027x\u0027Y\u0027y\u0027",
+      "modal": null
+    },
+    {
+      "id": "rotate",
+      "patterns": "ROT RPL=\u0027x\u0027",
+      "modal": null
+    },
+    {
+      "id": "rotate_off",
+      "patterns": "ROT",
+      "modal": null
+    },
+    {
+      "id": "laser_on",
+      "patterns": "TC_LASER_ON(\u0027*\u0027,\u0022\u0027x\u0027\u0022,\u0027*\u0027,\u0027*\u0027)",
+      "modal": null
+    },
+    {
+      "id": "laser_off",
+      "patterns": "TC_LASER_OFF(\u0027*\u0027)",
+      "modal": null
+    },
+    {
+      "id": "flycut",
+      "patterns": "G822; G823; G824",
+      "modal": null
+    },
+    {
+      "id": "punch_on",
+      "patterns": "PUNCH_ON",
+      "modal": null
+    },
+    {
+      "id": "punch_off",
+      "patterns": "PUNCH_OFF",
+      "modal": null
+    },
+    {
+      "id": "nibble_on",
+      "patterns": "NIBBLE_ON",
+      "modal": null
+    },
+    {
+      "id": "nibble_off",
+      "patterns": "NIBBLE_OFF",
+      "modal": null
+    },
+    {
+      "id": "nibble_pitch",
+      "patterns": "SPP=\u0027x\u0027",
+      "modal": null
+    },
+    {
+      "id": "mark_on",
+      "patterns": "TC_MARK_ON(\u0027*\u0027); TC_CARVE_ON(\u0027*\u0027)",
+      "modal": null
+    },
+    {
+      "id": "mark_off",
+      "patterns": "TC_MARK_OFF; TC_CARVE_OFF",
+      "modal": null
+    },
+    {
+      "id": "tool_select",
+      "patterns": "TC_TOOL_NO(\u0022\u0027x\u0027\u0022); TC_TOOL_LOAD(\u0022\u0027x\u0027\u0022,\u0027*\u0027)",
+      "modal": null
+    },
+    {
+      "id": "tool_angle",
+      "patterns": "C1=DC(\u0027x\u0027)",
+      "modal": null
+    },
+    {
+      "id": "technology",
+      "patterns": "TC_TOOL_TECH(\u0022\u0027x\u0027\u0022)",
+      "modal": null
+    },
+    {
+      "id": "ignore",
+      "patterns": "MSG(\u0027*\u0027); DEF \u0027*\u0027; TRAILON(\u0027*\u0027); G70; G71; F\u0027*\u0027; G40; G41; G42; TC_SUCTION_OFF; TC_SUCTION_ON; TC_CLAMP_CYC; TC_TOOL_CHANGE; TC_TOOL_HEIGHT(\u0027*\u0027); TC_TOOL_POSITION(\u0027*\u0027); TC_SHEET_TECH(\u0027*\u0027); TC_SHEET_LOAD(\u0027*\u0027); TC_PREPARE_SHEET_LOAD(\u0027*\u0027); TC_SHEET_UNLOAD(\u0027*\u0027); TC_PREPARE_UNLOAD(\u0027*\u0027); TC_UNLOAD(\u0027*\u0027); TC_SHEET_REPOSIT(\u0027*\u0027); TC_PART_END(\u0027*\u0027); TC_POS_LEVEL(\u0027*\u0027); TC_PCS_PIERCE; TC_MICROJOINT(\u0027*\u0027); TC_LASERCORR_ON(\u0027*\u0027); TC_LASERCORR_OFF; G04; TC_SHEET_THICK(\u0027*\u0027)",
+      "modal": null
+    }
+  ],
+  "structure": "trumpf_lst"
+}

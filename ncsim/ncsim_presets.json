@@ -1,0 +1,72 @@
+{
+  "format": 1,
+  "updated": "2026-10-12",
+  "presets": [
+    {
+      "type": "profile",
+      "name": "AMADA punch",
+      "version": 1,
+      "file": "presets/AMADA punch.json",
+      "size": 16536,
+      "sha256": "B5ECDC326DF99F14CE7386BE60A8D5643329A3E986566CED395B3B31DB7CC1AF",
+      "kind": "punch",
+      "description": "AMADA punch, based on FANUC with AMADA\u0027s own codes (Pavel 2026-10-12): T = tool \u002B punching, X / Y alone = a hit, G70 = move without a hit, G72 = pattern origin, G98 = reference point, C = tool angle; patterns G26 / G28 / G29 / G36 / G66 / G67 / G68 / G69 / G78 / G79 from AMADA\u0027s AMNC-F programming manual and the Metalix AMADA customization guide. Verified on PART-IS-DOWN.nc (cncKad) and the Romstar Vipros 255 .VNC files. Tool shapes: Tools page (Fill tools from NC).",
+      "updated": "2026-10-12"
+    },
+    {
+      "type": "profile",
+      "name": "FANUC",
+      "version": 1,
+      "file": "presets/FANUC.json",
+      "size": 11008,
+      "sha256": "B8DD8F66B6A007F683689FCB772C0A68E76BCD8A65930958F85D8A5274635E3F",
+      "kind": "laser",
+      "description": "FANUC-style G-code base: G00 / G01 / G02 / G03, G90 / G91, G52 local origin, O numbers \u002B M98 P calls \u002B M99, M30. The start for a machine without its own preset \u2014 teach its process commands (laser / punch on, tools) in the rows.",
+      "updated": "2026-10-12"
+    },
+    {
+      "type": "profile",
+      "name": "MAZAK laser",
+      "version": 1,
+      "file": "presets/MAZAK laser.json",
+      "size": 14728,
+      "sha256": "7D34CD43433CB1A4CAC6C49896336C8A6C6D25762B884ED5A843331066240302",
+      "kind": "laser",
+      "description": "MAZAK laser, FANUC-style program (O numbers, M98 P call, M99 return, G52 local origin per part). Technology routines as sub-program calls: M98P5001 laser on, M98P5900 laser off, M98P6004 cutting technology (Pavel 2026-10-12, Part1001orig.YNC); M23 = sensor off (Pavel). Verified on Part1001orig.YNC / Part1001.YNC. Other M-codes of this machine: teach them (they stay red).",
+      "updated": "2026-10-12"
+    },
+    {
+      "type": "profile",
+      "name": "PRIMA laser",
+      "version": 1,
+      "file": "presets/PRIMA laser.json",
+      "size": 10545,
+      "sha256": "983EAC55949205727F7EC85A919552E0685A366683CD503878DD87509216D324",
+      "kind": "laser",
+      "description": "Prima Power laser ISO (PPR Maestro): the parts as numbered bodies \u0022N10(* \u2026)\u0022 called with Q10 at the head position, M02 = end of a body, $(WORK_ON) / $(WORK_OFF) = process on / off, the sheet from the \u003Cmaterial \u2026\u003E line. Verified on 20260325PJC_SH2.ISO.",
+      "updated": "2026-10-12"
+    },
+    {
+      "type": "profile",
+      "name": "TRUMPF 840D LST",
+      "version": 1,
+      "file": "presets/TRUMPF 840D LST.json",
+      "size": 38481,
+      "sha256": "D7F21B546B81CF0DE36DEBE1D69669DADB80EC311825293323261CBBDFF8B379",
+      "kind": "combi",
+      "description": "TRUMPF TruTops LST for Siemens 840D (punch, laser, combi). Program structure: BEGIN_PROGRAMM list - HP = main, UP = sub-programs called by their name, GEO skipped; sheet from SHEET_TECH, tool shapes from WZG_STAMM. Verified on EC_T12_60120.LST (punch, inch), AG01338.LST (punch, GEO), SRS125ISR.LST (laser, ROT RPL). Source: docs/knowledge/ncsim-presets/trumpf-lst.md (Pavel 2026-10-12 \u002B the files) and the Metalix TRUMPF customization guide.",
+      "updated": "2026-10-12"
+    },
+    {
+      "type": "analysis",
+      "name": "AI analysis instructions",
+      "version": 1,
+      "file": "presets/ncsim_analysis.md",
+      "size": 2867,
+      "sha256": "7F053378F5D1EC899672C80976035F970CC844DF9434C63F8BB57D53A8ED67ED",
+      "kind": "",
+      "description": "",
+      "updated": "2026-10-12"
+    }
+  ]
+}

@@ -1,0 +1,650 @@
+{
+  "version": 1,
+  "name": "MAZAK laser",
+  "notes": "MAZAK laser, FANUC-style program (O numbers, M98 P call, M99 return, G52 local origin per part). Technology routines as sub-program calls: M98P5001 laser on, M98P5900 laser off, M98P6004 cutting technology (Pavel 2026-10-12, Part1001orig.YNC); M23 = sensor off (Pavel). Verified on Part1001orig.YNC / Part1001.YNC. Other M-codes of this machine: teach them (they stay red).",
+  "kind": "laser",
+  "units": "mm",
+  "lex": {
+    "comments": [
+      {
+        "open": "(",
+        "close": ")"
+      },
+      {
+        "open": ";",
+        "close": ""
+      }
+    ],
+    "spaces_inside_words": true,
+    "line_number_letter": "N",
+    "arg_separator": ","
+  },
+  "bounds": {
+    "start_marker": "",
+    "end_marker": ""
+  },
+  "templates": [
+    {
+      "id": "r.sub_start.0",
+      "label": "Sub-program start",
+      "form": "word",
+      "code": "O",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "sub_definition",
+          "params": {
+            "Id": "number"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "sub_start",
+      "row_pattern": "O\u0027x\u0027"
+    },
+    {
+      "id": "r.sub_call.0",
+      "label": "Sub-program call",
+      "form": "word",
+      "code": "M",
+      "number": "98",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "sub_call",
+          "params": {
+            "Id": "addr:P"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "sub_call",
+      "row_pattern": "M98P\u0027x\u0027"
+    },
+    {
+      "id": "r.sub_return.0",
+      "label": "Sub-program end (return)",
+      "form": "word",
+      "code": "M",
+      "number": "99",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "sub_return",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "sub_return",
+      "row_pattern": "M99"
+    },
+    {
+      "id": "r.program_end.0",
+      "label": "Program end",
+      "form": "word",
+      "code": "M",
+      "number": "30",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "program_end",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "program_end",
+      "row_pattern": "M30"
+    },
+    {
+      "id": "r.rapid.0",
+      "label": "Rapid move",
+      "form": "word",
+      "code": "G",
+      "number": "00",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": true,
+      "actions": [
+        {
+          "kind": "rapid",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "rapid",
+      "row_pattern": "G00X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.linear.0",
+      "label": "Cut line",
+      "form": "word",
+      "code": "G",
+      "number": "01",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": true,
+      "actions": [
+        {
+          "kind": "linear",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "linear",
+      "row_pattern": "G01X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.arc_cw.0",
+      "label": "Arc clockwise",
+      "form": "word",
+      "code": "G",
+      "number": "02",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": true,
+      "actions": [
+        {
+          "kind": "arc_cw",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y",
+            "I": "addr:I",
+            "J": "addr:J",
+            "R": "addr:R"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "arc_cw",
+      "row_pattern": "G02X\u0027x\u0027Y\u0027y\u0027I\u0027i\u0027J\u0027j\u0027R\u0027r\u0027"
+    },
+    {
+      "id": "r.arc_ccw.0",
+      "label": "Arc counter-clockwise",
+      "form": "word",
+      "code": "G",
+      "number": "03",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": true,
+      "actions": [
+        {
+          "kind": "arc_ccw",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y",
+            "I": "addr:I",
+            "J": "addr:J",
+            "R": "addr:R"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "arc_ccw",
+      "row_pattern": "G03X\u0027x\u0027Y\u0027y\u0027I\u0027i\u0027J\u0027j\u0027R\u0027r\u0027"
+    },
+    {
+      "id": "r.absolute.0",
+      "label": "Absolute coordinates",
+      "form": "word",
+      "code": "G",
+      "number": "90",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "absolute_mode",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "absolute",
+      "row_pattern": "G90"
+    },
+    {
+      "id": "r.incremental.0",
+      "label": "Incremental coordinates",
+      "form": "word",
+      "code": "G",
+      "number": "91",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "incremental_mode",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "incremental",
+      "row_pattern": "G91"
+    },
+    {
+      "id": "r.local_origin.0",
+      "label": "Local origin (zero point)",
+      "form": "word",
+      "code": "G",
+      "number": "52",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "local_origin",
+          "params": {
+            "X": "addr:X",
+            "Y": "addr:Y"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "local_origin",
+      "row_pattern": "G52X\u0027x\u0027Y\u0027y\u0027"
+    },
+    {
+      "id": "r.laser_on.0",
+      "label": "Laser on",
+      "form": "word",
+      "code": "M",
+      "number": "98",
+      "number_match": "value",
+      "conditions": [
+        {
+          "letter": "P",
+          "number": "5001"
+        }
+      ],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_on",
+          "params": {
+            "Process": "const:laser"
+          }
+        },
+        {
+          "kind": "technology_select",
+          "params": {
+            "Name": "const:M98P5001"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 1,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "laser_on",
+      "row_pattern": "M98P5001"
+    },
+    {
+      "id": "r.laser_off.0",
+      "label": "Laser off",
+      "form": "word",
+      "code": "M",
+      "number": "98",
+      "number_match": "value",
+      "conditions": [
+        {
+          "letter": "P",
+          "number": "5900"
+        }
+      ],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "process_off",
+          "params": {
+            "Process": "const:laser"
+          }
+        }
+      ],
+      "order": "after",
+      "priority": 1,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "laser_off",
+      "row_pattern": "M98P5900"
+    },
+    {
+      "id": "r.technology.0",
+      "label": "Technology",
+      "form": "word",
+      "code": "M",
+      "number": "98",
+      "number_match": "value",
+      "conditions": [
+        {
+          "letter": "P",
+          "number": "6004"
+        }
+      ],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "technology_select",
+          "params": {
+            "Name": "const:M98P6004"
+          }
+        }
+      ],
+      "order": "before",
+      "priority": 1,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "technology",
+      "row_pattern": "M98P6004"
+    },
+    {
+      "id": "r.sheet_size.0",
+      "label": "Sheet size",
+      "form": "line_pattern",
+      "code": "",
+      "number": null,
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "(-SHEET {1} {2} {3} {*}",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "sheet_size",
+          "params": {
+            "Width": "slot:1",
+            "Height": "slot:2",
+            "Thickness": "slot:3"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "sheet_size",
+      "row_pattern": "(-SHEET \u0027w\u0027 \u0027h\u0027 \u0027t\u0027 \u0027*\u0027"
+    },
+    {
+      "id": "r.ignore.0",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "M",
+      "number": "23",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "M23"
+    },
+    {
+      "id": "r.ignore.1",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "04",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {
+            "_X": "addr:X"
+          }
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G04X\u0027*\u0027"
+    },
+    {
+      "id": "r.ignore.2",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "40",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G40"
+    },
+    {
+      "id": "r.ignore.3",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "41",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G41"
+    },
+    {
+      "id": "r.ignore.4",
+      "label": "Known \u2014 nothing to draw (one pattern per command)",
+      "form": "word",
+      "code": "G",
+      "number": "42",
+      "number_match": "value",
+      "conditions": [],
+      "pattern": "",
+      "modal": false,
+      "actions": [
+        {
+          "kind": "ignore",
+          "params": {}
+        }
+      ],
+      "order": "with_motion",
+      "priority": 0,
+      "example_line": "",
+      "example_line_no": 0,
+      "from_rows": "ignore",
+      "row_pattern": "G42"
+    }
+  ],
+  "arcs": {
+    "centre": "from_start",
+    "negative_r": "unresolved",
+    "full_circle_without_end_point": true
+  },
+  "calls": {
+    "id_match": "numeric_value",
+    "origin": "unchanged",
+    "modes_on_return": "keep",
+    "max_depth": 8,
+    "main_block": 1
+  },
+  "sheet": {
+    "width": 0,
+    "height": 0,
+    "thickness": 0,
+    "override": false
+  },
+  "tools": [],
+  "plain_xy_motion": "none",
+  "preset": null,
+  "rows": [
+    {
+      "id": "sub_start",
+      "patterns": "O\u0027x\u0027",
+      "modal": null
+    },
+    {
+      "id": "sub_call",
+      "patterns": "M98P\u0027x\u0027",
+      "modal": null
+    },
+    {
+      "id": "sub_return",
+      "patterns": "M99",
+      "modal": null
+    },
+    {
+      "id": "program_end",
+      "patterns": "M30",
+      "modal": null
+    },
+    {
+      "id": "rapid",
+      "patterns": "G00X\u0027x\u0027Y\u0027y\u0027",
+      "modal": null
+    },
+    {
+      "id": "linear",
+      "patterns": "G01X\u0027x\u0027Y\u0027y\u0027",
+      "modal": null
+    },
+    {
+      "id": "arc_cw",
+      "patterns": "G02X\u0027x\u0027Y\u0027y\u0027I\u0027i\u0027J\u0027j\u0027R\u0027r\u0027",
+      "modal": null
+    },
+    {
+      "id": "arc_ccw",
+      "patterns": "G03X\u0027x\u0027Y\u0027y\u0027I\u0027i\u0027J\u0027j\u0027R\u0027r\u0027",
+      "modal": null
+    },
+    {
+      "id": "absolute",
+      "patterns": "G90",
+      "modal": null
+    },
+    {
+      "id": "incremental",
+      "patterns": "G91",
+      "modal": null
+    },
+    {
+      "id": "local_origin",
+      "patterns": "G52X\u0027x\u0027Y\u0027y\u0027",
+      "modal": null
+    },
+    {
+      "id": "laser_on",
+      "patterns": "M98P5001",
+      "modal": null
+    },
+    {
+      "id": "laser_off",
+      "patterns": "M98P5900",
+      "modal": null
+    },
+    {
+      "id": "technology",
+      "patterns": "M98P6004",
+      "modal": null
+    },
+    {
+      "id": "sheet_size",
+      "patterns": "(-SHEET \u0027w\u0027 \u0027h\u0027 \u0027t\u0027 \u0027*\u0027",
+      "modal": null
+    },
+    {
+      "id": "ignore",
+      "patterns": "M23; G04X\u0027*\u0027; G40; G41; G42",
+      "modal": null
+    }
+  ],
+  "structure": "standard"
+}
