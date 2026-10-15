@@ -1,9 +1,9 @@
 {
-  "version": "K-001",
-  "version_number": 1,
-  "built": "2026-10-09 07:32",
+  "version": "K-002",
+  "version_number": 2,
+  "built": "2026-10-15 16:14",
   "format": 2,
   "file": "metalix_knowledge.json.gz",
-  "size": 254852,
-  "sha256": "668C679601D57C82039C5F58050703C0FF9C2400B749CE4331FAAD7B342F47E3"
+  "size": 323585,
+  "sha256": "27B3B21012286B9E8D3BA727F79D1CAD8E7B77BA79E3380899BD3D4F8D775D7E"
 }
